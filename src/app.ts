@@ -60,7 +60,7 @@ class App {
         origin: config.get('cors.origin'),
         credentials: config.get('cors.credentials'),
       },
-      controllers: controllers,
+      controllers,
       defaultErrorHandler: false,
     });
   }
@@ -72,7 +72,7 @@ class App {
     });
 
     const routingControllersOptions = {
-      controllers: controllers,
+      controllers,
     };
 
     const storage = getMetadataArgsStorage();
