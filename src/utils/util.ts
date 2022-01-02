@@ -17,3 +17,6 @@ export const isEmpty = (value: string | number | object): boolean => {
     return false;
   }
 };
+
+// use adventDay3Part2
+// export const convertToDecimal = (a: number, c: number, i: number) => a + (i === 0 || c === 0 ? c : Math.pow(2, i));

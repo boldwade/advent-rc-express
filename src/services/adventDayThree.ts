@@ -1,3 +1,5 @@
+import { convertToDecimal } from '@/utils/util';
+
 export const adventDayThreeMap = (input: string[]) => input;
 
 export const adventDayThree = (input: string[]) => {
@@ -21,18 +23,15 @@ export const adventDayThree = (input: string[]) => {
     gammaBits.push(value > totalBinaries / 2 ? 1 : 0);
     epsilonBits.push(value > totalBinaries / 2 ? 0 : 1);
   });
-  console.log('binaryTally', binaryTally, binaryLength, totalBinaries, gammaBits, epsilonBits);
+  console.log('binaryTally', binaryTally, binaryLength, totalBinaries);
 
-  const gammaDecBits = gammaBits.reduce((acc, c, index) => {
-    console.log('acc', acc, c, index);
-    return acc + (index === 0 || c === 0 ? c : Math.pow(2, index));
-  }, 0);
-  console.log('gammaDecBits', gammaDecBits);
+  const gammaNumber = gammaBits.reduce(convertToDecimal, 0);
+  console.log('gammaDecBits', gammaBits, gammaNumber);
 
-  const epsilonDecBits = epsilonBits.reduce((acc, c, index) => {
-    console.log('acc', acc, c, index);
-    return acc + (index === 0 || c === 0 ? c : Math.pow(2, index));
-  }, 0);
-  console.log('bits', gammaDecBits, epsilonDecBits, gammaDecBits * epsilonDecBits);
-  return gammaDecBits * epsilonDecBits;
+  const epsilonNumber = epsilonBits.reduce(convertToDecimal, 0);
+  console.log('epsilonDecBits', epsilonNumber, epsilonBits);
+
+  console.log('gammaDecBits * epsilonDecBits ', gammaNumber * epsilonNumber);
+
+  return gammaNumber * epsilonNumber;
 };

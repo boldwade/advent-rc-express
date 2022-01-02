@@ -11,10 +11,20 @@ export default class AdventService {
   private config: AxiosRequestConfig<any> = {
     method: 'get',
     headers: {
-      Cookie: 'session=53616c7465645f5f6967141d1f296e2452d8e9a17c3275af5bf419be1d3f68d43f6f179f33cc830f152a532d6b013e70',
+      Cookie: process.env.COOKIE,
       Host: 'adventofcode.com',
     },
   };
+
+  public async getResultByDay(day: string, isTest?: boolean): Promise<string | number> {
+    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
+
+    const input = isTest ? this.testInputDataByDay[day] : await this.getInputByDay(day);
+    if (!input) throw new HttpException(400, 'An error occurred');
+    const mappedInput = this.mapInputByDay[day](input);
+    this.inputMap.set(day, mappedInput);
+    return this.resultByDayFactory[day](mappedInput);
+  }
 
   public async getInputByDay(day: string): Promise<string[]> {
     console.log('getInputByDay', day);
@@ -38,16 +48,6 @@ export default class AdventService {
     throw new HttpException(400, "You're not userData");
   }
 
-  public async getResultByDay(day: string, part?: string): Promise<string | number> {
-    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
-
-    const input = await this.getInputByDay(day);
-    if (!input) throw new HttpException(400, 'An error occurred');
-    const mappedInput = this.mapInputByDay[day](input);
-    this.inputMap.set(day, mappedInput);
-    return this.resultByDayFactory[day](mappedInput);
-  }
-
   private mapInputByDay = {
     '1': adventDayOneMap,
     '2': adventDayTwoMap,
@@ -60,5 +60,12 @@ export default class AdventService {
     '2': adventDayTwo,
     '3': adventDayThree,
     '3a': adventDayThreePartTwo,
+  };
+
+  private testInputDataByDay = {
+    '1': [],
+    '2': [],
+    '3': ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'],
+    '3a': ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'],
   };
 }
