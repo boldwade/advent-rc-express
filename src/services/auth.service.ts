@@ -18,7 +18,7 @@ class AuthService {
     if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
 
     const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = { id: this.users.length + 1, ...userData, password: hashedPassword };
+    const createUserData: User = { id: this.users.length + 1, email: userData.email, password: hashedPassword };
 
     return createUserData;
   }

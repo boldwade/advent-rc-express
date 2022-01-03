@@ -1,5 +1,3 @@
-import { convertToDecimal } from '@/utils/util';
-
 export const adventDayThreeMap = (input: string[]) => input;
 
 export const adventDayThree = (input: string[]) => {
@@ -25,11 +23,13 @@ export const adventDayThree = (input: string[]) => {
   });
   console.log('binaryTally', binaryTally, binaryLength, totalBinaries);
 
-  const gammaNumber = gammaBits.reduce(convertToDecimal, 0);
+  // const gammaNumber = gammaBits.reduce(convertToDecimal, 0);
+  const gammaNumber = parseInt(gammaBits.join(''), 2);
   console.log('gammaDecBits', gammaBits, gammaNumber);
 
-  const epsilonNumber = epsilonBits.reduce(convertToDecimal, 0);
-  console.log('epsilonDecBits', epsilonNumber, epsilonBits);
+  // const epsilonNumber = epsilonBits.reduce(convertToDecimal, 0);
+  const epsilonNumber = parseInt(epsilonBits.join(''), 2);
+  console.log('epsilonDecBits', epsilonBits, epsilonNumber);
 
   console.log('gammaDecBits * epsilonDecBits ', gammaNumber * epsilonNumber);
 

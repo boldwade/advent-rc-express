@@ -1,9 +1,9 @@
 import { HttpException } from '@exceptions/HttpException';
 import axios, { AxiosRequestConfig } from 'axios';
 import { adventDayThreePartTwo } from './adventDay3Part2';
-import { adventDayOne, adventDayOneMap } from './adventDayOne';
-import { adventDayThree, adventDayThreeMap } from './adventDayThree';
-import { adventDayTwo, adventDayTwoMap } from './adventDayTwo';
+import { adventDayOne, adventDayOneMap } from './adventDay1';
+import { adventDayThree, adventDayThreeMap } from './adventDay3';
+import { adventDayTwo, adventDayTwoMap } from './adventDay2';
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -16,10 +16,10 @@ export default class AdventService {
     },
   };
 
-  public async getResultByDay(day: string, isTest?: boolean): Promise<string | number> {
+  public async getResultByDay(day: string): Promise<string | number> {
     if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
 
-    const input = isTest ? this.testInputDataByDay[day] : await this.getInputByDay(day);
+    const input = await this.getInputByDay(day);
     if (!input) throw new HttpException(400, 'An error occurred');
     const mappedInput = this.mapInputByDay[day](input);
     this.inputMap.set(day, mappedInput);
@@ -60,12 +60,5 @@ export default class AdventService {
     '2': adventDayTwo,
     '3': adventDayThree,
     '3a': adventDayThreePartTwo,
-  };
-
-  private testInputDataByDay = {
-    '1': [],
-    '2': [],
-    '3': ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'],
-    '3a': ['00100', '11110', '10110', '10111', '10101', '01111', '00111', '11100', '10000', '11001', '00010', '01010'],
   };
 }

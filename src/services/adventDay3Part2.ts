@@ -21,8 +21,11 @@ export const adventDayThreePartTwo = (input: string[]) => {
   };
 
   const mc = getCommonNumber(false);
-  console.log('mc', mc, parseInt(mc[0], 2)); // Convert binary to decimal
+  const mcNumber = parseInt(mc[0], 2);
+  console.log('mc', mc, mcNumber); // Convert binary to decimal
 
   const lc = getCommonNumber(true);
-  console.log('lc', lc, parseInt(lc[0], 2));
+  const lcNumber = parseInt(lc[0], 2);
+  console.log('lc1', lc, lcNumber);
+  return mcNumber * lcNumber;
 };

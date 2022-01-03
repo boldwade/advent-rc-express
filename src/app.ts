@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import '@/index';
-import { defaultMetadataStorage } from 'class-transformer';
+import { defaultMetadataStorage } from 'class-transformer/cjs/storage';
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
@@ -15,7 +15,7 @@ import swaggerUi from 'swagger-ui-express';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 
-class App {
+export default class App {
   public app: express.Application;
   public port: string | number;
   public env: string;
@@ -100,5 +100,3 @@ class App {
     this.app.use(errorMiddleware);
   }
 }
-
-export default App;

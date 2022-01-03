@@ -13,12 +13,4 @@ export class AdventController {
     const data = await this.adventService.getResultByDay(day);
     return { data, message: 'retrieved' };
   }
-
-  @Get('/advent/:day/test')
-  @OpenAPI({ summary: 'Get advent input by day' })
-  async getTestResultBy(@Param('day') day: string) {
-    console.log('adventController', day);
-    const data = await this.adventService.getResultByDay(day, true);
-    return { data, message: 'retrieved' };
-  }
 }
