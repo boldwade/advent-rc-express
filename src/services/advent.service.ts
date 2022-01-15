@@ -1,9 +1,10 @@
 import { HttpException } from '@exceptions/HttpException';
 import axios, { AxiosRequestConfig } from 'axios';
-import { adventDayThreePartTwo } from './adventDay3Part2';
-import { adventDayOne, adventDayOneMap } from './adventDay1';
-import { adventDayThree, adventDayThreeMap } from './adventDay3';
-import { adventDayTwo, adventDayTwoMap } from './adventDay2';
+import { adventDay3Part2 } from './adventDay3Part2';
+import { adventDay1, adventDay1Part2, adventDay1Map } from './adventDay1';
+import { adventDay3, adventDay3Map } from './adventDay3';
+import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
+import { adventDay4, adventDay4Map } from "@services/adventDay4";
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -17,11 +18,12 @@ export default class AdventService {
   };
 
   public async getResultByDay(day: string): Promise<string | number> {
-    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
+    if (this.inputMap.has(day))
+      return this.resultByDayFactory[day](this.inputMap.get(day));
 
     const input = await this.getInputByDay(day);
     if (!input) throw new HttpException(400, 'An error occurred');
-    const mappedInput = this.mapInputByDay[day](input);
+    const mappedInput = this.mapInputByDay[day[0]](input);
     this.inputMap.set(day, mappedInput);
     return this.resultByDayFactory[day](mappedInput);
   }
@@ -49,16 +51,19 @@ export default class AdventService {
   }
 
   private mapInputByDay = {
-    '1': adventDayOneMap,
-    '2': adventDayTwoMap,
-    '3': adventDayThreeMap,
-    '3a': adventDayThreeMap,
+    '1': adventDay1Map,
+    '2': adventDay2Map,
+    '3': adventDay3Map,
+    '4': adventDay4Map,
   };
 
   private resultByDayFactory = {
-    '1': adventDayOne,
-    '2': adventDayTwo,
-    '3': adventDayThree,
-    '3a': adventDayThreePartTwo,
+    '1': adventDay1,
+    '1a': adventDay1Part2,
+    '2': adventDay2,
+    '2a': adventDay2Part2,
+    '3': adventDay3,
+    '3a': adventDay3Part2,
+    '4': adventDay4,
   };
 }

@@ -1,4 +1,4 @@
-export const adventDayThreePartTwo = (input: string[]) => {
+export const adventDay3Part2 = (input: string[]) => {
   console.log('adventDayThreePartTwo', input);
 
   const getCommonBit = (position: number, inputArray: string[]): 0 | 1 => {
