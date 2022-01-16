@@ -1,10 +1,10 @@
 import { HttpException } from '@exceptions/HttpException';
 import axios, { AxiosRequestConfig } from 'axios';
-import { adventDay3Part2 } from './adventDay3Part2';
-import { adventDay1, adventDay1Part2, adventDay1Map } from './adventDay1';
-import { adventDay3, adventDay3Map } from './adventDay3';
+import { adventDay1, adventDay1Part2 } from './adventDay1';
+import { adventDay3, adventDay3Map, adventDay3Part2 } from './adventDay3';
 import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
-import { adventDay4, adventDay4Map } from "@services/adventDay4";
+import { parseNumeric } from '@/utils/util';
+// import { adventDay4, adventDay4Map } from './adventDay4';
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -51,10 +51,10 @@ export default class AdventService {
   }
 
   private mapInputByDay = {
-    '1': adventDay1Map,
+    '1': parseNumeric,
     '2': adventDay2Map,
     '3': adventDay3Map,
-    '4': adventDay4Map,
+    // '4': adventDay4Map,
   };
 
   private resultByDayFactory = {
@@ -64,6 +64,6 @@ export default class AdventService {
     '2a': adventDay2Part2,
     '3': adventDay3,
     '3a': adventDay3Part2,
-    '4': adventDay4,
+    // '4': adventDay4,
   };
 }

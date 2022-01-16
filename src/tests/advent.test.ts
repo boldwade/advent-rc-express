@@ -28,7 +28,7 @@ describe('Testing Advents', () => {
     });
   });
 
-  describe.only('advent 2', () => {
+  describe('advent 2', () => {
     const input: string[] = testInputDataByDay['2'].split('\n');
     let service: AdventService;
 
@@ -47,7 +47,7 @@ describe('Testing Advents', () => {
       expect(result).toEqual(150);
     });
 
-    it.only('gets day 2 part 2 - planned course 1', async () => {
+    it('gets day 2 part 2 - planned course 1', async () => {
       const result = await service.getResultByDay('2a');
       expect(result).toEqual(900);
     });
@@ -70,6 +70,21 @@ describe('Testing Advents', () => {
     it('gets day 3a', async () => {
       const result = await service.getResultByDay('3a');
       expect(result).toEqual(230);
+    });
+  });
+
+  describe('advent 4', () => {
+    const input: string[] = testInputDataByDay['4'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService();
+      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+    });
+
+    it('gets day 4', async () => {
+      const result = await service.getResultByDay('4');
+      expect(result).toEqual(7);
     });
   });
 });

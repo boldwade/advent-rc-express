@@ -1,6 +1,3 @@
-export const adventDay1Map = (input: string[]) =>
-  input.map(x => Number.parseInt(x));
-
 export const adventDay1 = (input: number[]) => {
   let result = 0;
   input.reduce((prev: number, curr: number) => {

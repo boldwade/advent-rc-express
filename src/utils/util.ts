@@ -11,6 +11,7 @@ export const isEmpty = (value: string | number | object): boolean => {
     return true;
   } else if (typeof value === 'undefined' || value === undefined) {
     return true;
+    // eslint-disable-next-line prettier/prettier
   } else if (value !== null && typeof value === 'object' && !Object.keys(value).length) {
     return true;
   } else {
@@ -20,3 +21,6 @@ export const isEmpty = (value: string | number | object): boolean => {
 
 // use adventDay3Part2
 // export const convertToDecimal = (a: number, c: number, i: number) => a + (i === 0 || c === 0 ? c : Math.pow(2, i));
+
+export const parseNumeric = (input: string[]) =>
+  input.map(x => Number.parseInt(x));
