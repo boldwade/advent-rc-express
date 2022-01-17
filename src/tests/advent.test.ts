@@ -73,7 +73,7 @@ describe('Testing Advents', () => {
     });
   });
 
-  describe('advent 4', () => {
+  describe.only('advent 4', () => {
     const input: string[] = testInputDataByDay['4'].split('\n');
     let service: AdventService;
 
@@ -84,7 +84,7 @@ describe('Testing Advents', () => {
 
     it('gets day 4', async () => {
       const result = await service.getResultByDay('4');
-      expect(result).toEqual(7);
+      expect(result).toEqual(1);
     });
   });
 });
