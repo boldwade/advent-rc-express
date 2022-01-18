@@ -42,30 +42,35 @@ function getWinningLines(lines: Array<number[]>, calledNumbers: number[]) {
 }
 
 export const adventDay4 = (input: BingoDay) => {
-  const calledNumbers = [];
+  const calledNumbers: number[] = [];
   let winningLines: number[][] = [];
-  let drawnNumbersIndex = 0;
+  let drawnNumbersIndex = -1;
+  let winningCardIndex = -1;
+  let lastDrawnNumber = -1;
 
   try {
-    do {
-      const drawnNumber = input.drawnNumbers[drawnNumbersIndex];
-      calledNumbers.push(drawnNumber);
+
+    while (!winningLines.length && drawnNumbersIndex < input.drawnNumbers.length - 1) {
+      drawnNumbersIndex++;
+      lastDrawnNumber = input.drawnNumbers[drawnNumbersIndex];
+      calledNumbers.push(lastDrawnNumber);
       console.log('calledNumbers', calledNumbers);
 
-      let cardsIndex = 0;
-      do {
+      let cardsIndex = -1;
+      while (!winningLines.length && cardsIndex < input.cards.length - 1) {
+        cardsIndex++;
         const card = input.cards[cardsIndex];
         winningLines = getWinningLines(card, calledNumbers);
-
-        cardsIndex++;
-      } while (winningLines.length === 0 && cardsIndex < input.cards.length);
-
-      drawnNumbersIndex++;
-    } while (winningLines.length === 0 && drawnNumbersIndex < input.drawnNumbers.length);
+        if (winningLines.length) winningCardIndex = cardsIndex;
+      }
+    };
 
   } catch (e) {
     console.log(e);
   }
 
-  return winningLines;
+  const winningCardNumbers: number[] = [].concat(...input.cards[winningCardIndex]);
+  const unmarkedNumbers = winningCardNumbers.filter(x => calledNumbers.indexOf(x) === -1);
+  const sumOfUnmarked = unmarkedNumbers.reduce((prev, curr) => prev + curr, 0);
+  return sumOfUnmarked * lastDrawnNumber;
 };

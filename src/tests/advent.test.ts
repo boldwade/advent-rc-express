@@ -84,7 +84,7 @@ describe('Testing Advents', () => {
 
     it('gets day 4', async () => {
       const result = await service.getResultByDay('4');
-      expect(result).toEqual(1);
+      expect(result).toEqual(4512);
     });
   });
 });
