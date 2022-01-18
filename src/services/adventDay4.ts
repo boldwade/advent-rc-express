@@ -13,7 +13,7 @@ export const adventDay4Map = (input: string[]): BingoDay => {
     drawnNumbers: parseNumeric(input[0].split(',')),
     cards: []
   };
-  
+
   let bingoCard: BingoCard = [];
   input.forEach((row, index) => {
     if (index < 2) return;
@@ -35,18 +35,37 @@ export const adventDay4Map = (input: string[]): BingoDay => {
 function isWinningLine(line: number[], calledNumbers: number[]) {
   const missingIndex = line.findIndex(value => !calledNumbers.includes(value));
   return line.length > 0 && missingIndex === -1;
-} 
+}
 
 function getWinningLines(lines: Array<number[]>, calledNumbers: number[]) {
   return lines.filter(line => isWinningLine(line, calledNumbers));
 }
+
 export const adventDay4 = (input: BingoDay) => {
   const calledNumbers = [];
-  const result = input.drawnNumbers.reduce((prev, curr, i) => {
-    calledNumbers.push(curr);
-    // TODO: change reduce to map
-    // TODO: getWinningLines needs to foreach on input.cards
-    const hasWinningLine = getWinningLines(input.cards[0], calledNumbers);
-    return curr;
-  });
+  let winningLines: number[][] = [];
+  let drawnNumbersIndex = 0;
+
+  try {
+    do {
+      const drawnNumber = input.drawnNumbers[drawnNumbersIndex];
+      calledNumbers.push(drawnNumber);
+      console.log('calledNumbers', calledNumbers);
+
+      let cardsIndex = 0;
+      do {
+        const card = input.cards[cardsIndex];
+        winningLines = getWinningLines(card, calledNumbers);
+
+        cardsIndex++;
+      } while (winningLines.length === 0 && cardsIndex < input.cards.length);
+
+      drawnNumbersIndex++;
+    } while (winningLines.length === 0 && drawnNumbersIndex < input.drawnNumbers.length);
+
+  } catch (e) {
+    console.log(e);
+  }
+
+  return winningLines;
 };
