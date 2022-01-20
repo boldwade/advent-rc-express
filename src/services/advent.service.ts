@@ -5,7 +5,6 @@ import { adventDay3, adventDay3Map, adventDay3Part2 } from './adventDay3';
 import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
 import { parseNumeric } from '@/utils/util';
 import { adventDay4, adventDay4Map } from './adventDay4';
-// import { adventDay4, adventDay4Map } from './adventDay4';
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -32,7 +31,7 @@ export default class AdventService {
   public async getInputByDay(day: string): Promise<string[]> {
     console.log('getInputByDay', day);
 
-    if (day === '3a') day = '3';
+    day = day.replace('a', '');
     if (this.inputMap.has(day)) return this.inputMap.get(day);
 
     const url = this.baseUrl.replace('{day}', day);

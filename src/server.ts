@@ -9,5 +9,10 @@ import { AdventController } from './controllers/advent.controller';
 
 validateEnv();
 
-const app = new App([AuthController, IndexController, UsersController, AdventController]);
+const app = new App([
+  AuthController,
+  IndexController,
+  UsersController,
+  AdventController,
+]);
 app.listen();

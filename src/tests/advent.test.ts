@@ -73,7 +73,7 @@ describe('Testing Advents', () => {
     });
   });
 
-  describe.only('advent 4', () => {
+  describe('advent 4', () => {
     const input: string[] = testInputDataByDay['4'].split('\n');
     let service: AdventService;
 

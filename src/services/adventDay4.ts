@@ -24,8 +24,6 @@ export const adventDay4Map = (input: string[]): BingoDay => {
     }
     const bingoLine = parseNumeric(row.substring(1).split(' ').filter(x => x.length > 0));
     bingoCard.push(bingoLine);
-
-    console.log('bingo', bingoLine, bingoCard);
   });
   bingoDay.cards.push([...bingoCard]);
 
@@ -37,31 +35,50 @@ function isWinningLine(line: number[], calledNumbers: number[]) {
   return line.length > 0 && missingIndex === -1;
 }
 
-function getWinningLines(lines: Array<number[]>, calledNumbers: number[]) {
-  return lines.filter(line => isWinningLine(line, calledNumbers));
+function getWinningRows(rows: Array<number[]>, calledNumbers: number[]) {
+  return rows.filter(row => isWinningLine(row, calledNumbers));
+}
+
+function transpose(a: {}[]) {
+  try {
+    return Object.keys(a[0])
+      .map(c => a.map((r: { [x: string]: any; }) => r[c]));
+  } catch (e) {
+    console.log('transpose error', e);
+  }
+}
+
+function getWinningColumns(rows: Array<number[]>, calledNumbers: number[]) {
+  if (!rows.length) return;
+  const columns = transpose(rows);
+  return columns.filter(line => isWinningLine(line, calledNumbers));
 }
 
 export const adventDay4 = (input: BingoDay) => {
   const calledNumbers: number[] = [];
-  let winningLines: number[][] = [];
+  let winningRows: number[][] = [];
+  let winningColumns: number[][] = [];
   let drawnNumbersIndex = -1;
   let winningCardIndex = -1;
   let lastDrawnNumber = -1;
 
   try {
 
-    while (!winningLines.length && drawnNumbersIndex < input.drawnNumbers.length - 1) {
+    while (!winningColumns.length && !winningRows.length && drawnNumbersIndex < input.drawnNumbers.length - 1) {
       drawnNumbersIndex++;
       lastDrawnNumber = input.drawnNumbers[drawnNumbersIndex];
       calledNumbers.push(lastDrawnNumber);
-      console.log('calledNumbers', calledNumbers);
 
       let cardsIndex = -1;
-      while (!winningLines.length && cardsIndex < input.cards.length - 1) {
+      while (!winningColumns.length && !winningRows.length && cardsIndex < input.cards.length - 1) {
         cardsIndex++;
         const card = input.cards[cardsIndex];
-        winningLines = getWinningLines(card, calledNumbers);
-        if (winningLines.length) winningCardIndex = cardsIndex;
+        winningRows = getWinningRows(card, calledNumbers);
+        if (!winningRows?.length && card?.length) {
+          winningColumns = getWinningColumns(card, calledNumbers);
+        }
+
+        if (winningRows.length || winningColumns.length) winningCardIndex = cardsIndex
       }
     };
 

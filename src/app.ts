@@ -93,7 +93,7 @@ export default class App {
       },
     });
 
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
+    this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(spec));
   }
 
   private initializeErrorHandling() {
