@@ -86,5 +86,10 @@ describe('Testing Advents', () => {
       const result = await service.getResultByDay('4');
       expect(result).toEqual(4512);
     });
+
+    it.only('gets day 4a', async () => {
+      const result = await service.getResultByDay('4a');
+      expect(result).toEqual(1924);
+    });
   });
 });

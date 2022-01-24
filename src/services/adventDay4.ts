@@ -35,8 +35,10 @@ function isWinningLine(line: number[], calledNumbers: number[]) {
   return line.length > 0 && missingIndex === -1;
 }
 
-function getWinningRows(rows: Array<number[]>, calledNumbers: number[]) {
-  return rows.filter(row => isWinningLine(row, calledNumbers));
+function getWinningRows(rows: Array<number[]>, calledNumbers: number[], lastCalledNumber?: number) {
+  return rows
+    .filter(x => lastCalledNumber === undefined || x.indexOf(lastCalledNumber) > -1)
+    .filter(row => isWinningLine(row, calledNumbers));
 }
 
 function transpose(a: {}[]) {
@@ -48,10 +50,12 @@ function transpose(a: {}[]) {
   }
 }
 
-function getWinningColumns(rows: Array<number[]>, calledNumbers: number[]) {
+function getWinningColumns(rows: Array<number[]>, calledNumbers: number[], lastCalledNumber?: number) {
   if (!rows.length) return;
   const columns = transpose(rows);
-  return columns.filter(line => isWinningLine(line, calledNumbers));
+  return columns
+    .filter(x => lastCalledNumber === undefined || x.indexOf(lastCalledNumber) > -1)
+    .filter(line => isWinningLine(line, calledNumbers));
 }
 
 export const adventDay4 = (input: BingoDay) => {
@@ -97,5 +101,44 @@ export const adventDay4 = (input: BingoDay) => {
 
 export const adventDay4Part2 = (input: BingoDay) => {
   // Get last winning board
-  return 1;
+  const calledNumbers: number[] = [];
+  let lastWinningCardIndex = -1;
+  let lastWinningDrawnNumber = -1;
+  const winningCards = [];
+
+  try {
+    input.drawnNumbers.forEach(lastDrawnNumber => {
+      if (winningCards.length !== input.cards.length) {
+        calledNumbers.push(lastDrawnNumber);
+
+        input.cards
+          .forEach((card, cardsIndex) => {
+            if (winningCards.indexOf(cardsIndex) === -1) {
+              let winningRows: number[][] = getWinningRows(card, calledNumbers, lastDrawnNumber);
+              if (!winningRows || !winningRows.length) {
+                winningRows = getWinningColumns(card, calledNumbers, lastDrawnNumber);
+              }
+
+              if (winningRows?.length) {
+                lastWinningCardIndex = cardsIndex
+                lastWinningDrawnNumber = lastDrawnNumber;
+                winningCards.push(cardsIndex);
+              }
+            }
+          });
+      }
+    });
+
+  } catch (e) {
+    console.log(e);
+  }
+
+  const calledNums = [...input.drawnNumbers].slice(0, lastWinningCardIndex);
+
+  const winningCardNumbers: number[] = [].concat(...input.cards[lastWinningCardIndex]);
+  const unmarkedNumbers = winningCardNumbers.filter(x => calledNums.indexOf(x) === -1);
+  const sumOfUnmarked = unmarkedNumbers.reduce((prev, curr) => prev + curr, 0);
+  const result = sumOfUnmarked * lastWinningDrawnNumber;
+  console.log('result', result);
+  return result;
 }
