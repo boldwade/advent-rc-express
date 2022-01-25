@@ -87,9 +87,29 @@ describe('Testing Advents', () => {
       expect(result).toEqual(4512);
     });
 
-    it.only('gets day 4a', async () => {
+    it('gets day 4a', async () => {
       const result = await service.getResultByDay('4a');
       expect(result).toEqual(1924);
+    });
+  });
+
+  describe.only('advent 5', () => {
+    const input: string[] = testInputDataByDay['5'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService();
+      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+    });
+
+    it('gets day 5', async () => {
+      const result = await service.getResultByDay('5');
+      expect(result).toEqual(1);
+    });
+
+    it('gets day 5a', async () => {
+      const result = await service.getResultByDay('5a');
+      expect(result).toEqual(1);
     });
   });
 });

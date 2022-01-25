@@ -3,8 +3,10 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { adventDay1, adventDay1Part2 } from './adventDay1';
 import { adventDay3, adventDay3Map, adventDay3Part2 } from './adventDay3';
 import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
-import { parseNumeric } from '@/utils/util';
 import { adventDay4, adventDay4Map, adventDay4Part2 } from './adventDay4';
+import { adventDay5, adventDay5Map, adventDay5Part2 } from './adventDay5';
+
+import { parseNumeric } from '@/utils/util';
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -55,6 +57,7 @@ export default class AdventService {
     '2': adventDay2Map,
     '3': adventDay3Map,
     '4': adventDay4Map,
+    '5': adventDay5Map,
   };
 
   private resultByDayFactory = {
@@ -66,5 +69,7 @@ export default class AdventService {
     '3a': adventDay3Part2,
     '4': adventDay4,
     '4a': adventDay4Part2,
+    '5': adventDay5,
+    '5a': adventDay5Part2,
   };
 }
