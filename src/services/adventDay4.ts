@@ -133,7 +133,8 @@ export const adventDay4Part2 = (input: BingoDay) => {
     console.log(e);
   }
 
-  const calledNums = [...input.drawnNumbers].slice(0, lastWinningCardIndex);
+  const lastWinningDrawnNumberIndex = input.drawnNumbers.indexOf(lastWinningDrawnNumber);
+  const calledNums = [...input.drawnNumbers].slice(0, lastWinningDrawnNumberIndex + 1);
 
   const winningCardNumbers: number[] = [].concat(...input.cards[lastWinningCardIndex]);
   const unmarkedNumbers = winningCardNumbers.filter(x => calledNums.indexOf(x) === -1);
