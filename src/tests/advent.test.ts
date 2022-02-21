@@ -1,6 +1,6 @@
 import AdventService from '../services/advent.service';
 import { adventDay2Map } from '../services/adventDay2';
-import { testInputDataByDay } from './TestInputDataByDay';
+import { testInputDataByDay } from './advent.input';
 import * as sinon from 'sinon';
 
 afterAll(async () => {
@@ -93,7 +93,7 @@ describe('Testing Advents', () => {
     });
   });
 
-  describe.only('advent 5', () => {
+  describe('advent 5', () => {
     const input: string[] = testInputDataByDay['5'].split('\n');
     let service: AdventService;
 
@@ -104,12 +104,12 @@ describe('Testing Advents', () => {
 
     it('gets day 5', async () => {
       const result = await service.getResultByDay('5');
-      expect(result).toEqual(1);
+      expect(result).toEqual(5);
     });
 
-    it('gets day 5a', async () => {
-      const result = await service.getResultByDay('5a');
-      expect(result).toEqual(1);
-    });
+    // it('gets day 5a', async () => {
+    //   const result = await service.getResultByDay('5a');
+    //   expect(result).toEqual(1);
+    // });
   });
 });

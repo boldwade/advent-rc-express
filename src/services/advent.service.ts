@@ -20,12 +20,12 @@ export default class AdventService {
   };
 
   public async getResultByDay(day: string): Promise<string | number> {
-    if (this.inputMap.has(day))
-      return this.resultByDayFactory[day](this.inputMap.get(day));
+    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
 
     const input = await this.getInputByDay(day);
     if (!input) throw new HttpException(400, 'An error occurred');
     const mappedInput = this.mapInputByDay[day[0]](input);
+    console.log('mappedInput', mappedInput);
     this.inputMap.set(day, mappedInput);
     return this.resultByDayFactory[day](mappedInput);
   }
