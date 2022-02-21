@@ -34,36 +34,75 @@ export const adventDay5Map = (input: string[]): lineSegment[] =>
 
 export const adventDay5 = (input: lineSegment[]) => {
   // Hydrothermal Venture
-  const tallies: tally[] = [];
-  const lines = input.filter(x => x.startX === x.endX || x.startY === x.endY);
-  lines.forEach(l => {
-    const constDirection = l.startX === l.endX ? 'x' : 'y';
-    const constValue = l.startX === l.endX ? l.startX : l.startY;
-    const travelDirection = constDirection === 'x' ? 'y' : 'x';
-    const lineLength = Math.abs(l['start' + travelDirection.toUpperCase()] - l['end' + travelDirection.toUpperCase()]) + 1;
-    const start = Math.min(l['start' + travelDirection.toUpperCase()], l['end' + travelDirection.toUpperCase()]);
-    const travelValues = Array.from({ length: lineLength }, (v, i) => i + start);
-    tallies.push({ constDirection, constValue, travelDirection, travelValues });
-  });
+  const tallies = new Map<string, number>();
 
-  const accumulators = new Map<string, number>();
-  tallies.forEach(t => {
-    t.travelValues.forEach(v => {
-      const key = 'x' + (t.constDirection === 'y' ? v : t.constValue) + 'y' + (t.constDirection === 'y' ? t.constValue : v);
-      let value = 1;
-      if (accumulators.has(key)) value += accumulators.get(key);
-      accumulators.set(key, value);
+  const straightLines = input.filter(x => x.startX === x.endX || x.startY === x.endY);
+  straightLines.forEach(l => {
+    const xStart = l.startX * (l.startX < l.endX ? 1 : -1);
+    const xLength = Math.abs(l.startX - l.endX) + 1;
+    const xTravel = Array.from({ length: xLength }, (v, i) => Math.abs(i + xStart));
+
+    const yStart = l.startY * (l.startY < l.endY ? 1 : -1);
+    const yLength = Math.abs(l.startY - l.endY) + 1;
+    const yTravel = Array.from({ length: yLength }, (v, i) => Math.abs(i + yStart));
+
+    xTravel.forEach(x => {
+      yTravel.forEach(y => {
+        const key = `x${x}y${y}`;
+        const value = 1 + (tallies.has(key) ? tallies.get(key) : 0);
+        tallies.set(key, value);
+      });
     });
   });
 
   let countOfValuesOverOne = 0;
-  accumulators.forEach(v => {
+  tallies.forEach(v => {
     if (v > 1) countOfValuesOverOne++;
   });
+
   console.log('countOfValuesOverOne', countOfValuesOverOne);
   return countOfValuesOverOne;
 };
 
 export const adventDay5Part2 = (input: lineSegment[]) => {
-  return 1;
+  // Hydrothermal Venture including diagnol
+  const tallies = new Map<string, number>();
+
+  // const straightLines = input.filter(x => x.startX === x.endX || x.startY === x.endY);
+  input.forEach(l => {
+    const xStart = l.startX * (l.startX < l.endX ? 1 : -1);
+    const xLength = Math.abs(l.startX - l.endX) + 1;
+    const xTravel = Array.from({ length: xLength }, (v, i) => Math.abs(i + xStart));
+
+    const yStart = l.startY * (l.startY < l.endY ? 1 : -1);
+    const yLength = Math.abs(l.startY - l.endY) + 1;
+    const yTravel = Array.from({ length: yLength }, (v, i) => Math.abs(i + yStart));
+
+    const isStraight = l.startX === l.endX || l.startY === l.endY;
+
+    if (isStraight) {
+      xTravel.forEach(x => {
+        yTravel.forEach(y => {
+          const key = `x${x}y${y}`;
+          const value = 1 + (tallies.has(key) ? tallies.get(key) : 0);
+          tallies.set(key, value);
+        });
+      });
+    } else {
+      // Diagnol line
+      for (let index = 0; index < xLength; index++) {
+        const key = `x${xTravel[index]}y${yTravel[index]}`;
+        const value = 1 + (tallies.has(key) ? tallies.get(key) : 0);
+        tallies.set(key, value);
+      }
+    }
+  });
+
+  let countOfValuesOverOne = 0;
+  tallies.forEach(v => {
+    if (v > 1) countOfValuesOverOne++;
+  });
+
+  console.log('countOfValuesOverOne', countOfValuesOverOne);
+  return countOfValuesOverOne;
 };
