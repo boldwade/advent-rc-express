@@ -22,5 +22,4 @@ export const isEmpty = (value: string | number | object): boolean => {
 // use adventDay3Part2
 // export const convertToDecimal = (a: number, c: number, i: number) => a + (i === 0 || c === 0 ? c : Math.pow(2, i));
 
-export const parseNumeric = (input: string[]) =>
-  input.map(x => Number.parseInt(x));
+export const parseNumeric = (input: string[]) => input.map(x => Number.parseInt(x));

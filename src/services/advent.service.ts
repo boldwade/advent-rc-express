@@ -1,12 +1,13 @@
 import { HttpException } from '@exceptions/HttpException';
 import axios, { AxiosRequestConfig } from 'axios';
+import { parseNumeric } from '@/utils/util';
+
 import { adventDay1, adventDay1Part2 } from './adventDay1';
 import { adventDay3, adventDay3Map, adventDay3Part2 } from './adventDay3';
 import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
 import { adventDay4, adventDay4Map, adventDay4Part2 } from './adventDay4';
 import { adventDay5, adventDay5Map, adventDay5Part2 } from './adventDay5';
-
-import { parseNumeric } from '@/utils/util';
+import {adventDay6, adventDay6a, adventDay6Map} from './adventDay6';
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -18,17 +19,6 @@ export default class AdventService {
       Host: 'adventofcode.com',
     },
   };
-
-  public async getResultByDay(day: string): Promise<string | number> {
-    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
-
-    const input = await this.getInputByDay(day);
-    if (!input) throw new HttpException(400, 'An error occurred');
-    const mappedInput = this.mapInputByDay[day[0]](input);
-    console.log('mappedInput', mappedInput);
-    this.inputMap.set(day, mappedInput);
-    return this.resultByDayFactory[day](mappedInput);
-  }
 
   public async getInputByDay(day: string): Promise<string[]> {
     console.log('getInputByDay', day);
@@ -52,12 +42,24 @@ export default class AdventService {
     throw new HttpException(400, "You're not userData");
   }
 
+  public async getResultByDay(day: string): Promise<string | number> {
+    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
+
+    const input = await this.getInputByDay(day);
+    if (!input) throw new HttpException(400, 'An error occurred');
+    const mappedInput = this.mapInputByDay[day[0]](input);
+    console.log('mappedInput', mappedInput);
+    this.inputMap.set(day, mappedInput);
+    return this.resultByDayFactory[day](mappedInput);
+  }
+
   private mapInputByDay = {
     '1': parseNumeric,
     '2': adventDay2Map,
     '3': adventDay3Map,
     '4': adventDay4Map,
     '5': adventDay5Map,
+    '6': adventDay6Map,
   };
 
   private resultByDayFactory = {
@@ -71,5 +73,7 @@ export default class AdventService {
     '4a': adventDay4Part2,
     '5': adventDay5,
     '5a': adventDay5Part2,
+    '6': adventDay6,
+    '6a': adventDay6a,
   };
 }

@@ -112,4 +112,24 @@ describe('Testing Advents', () => {
       expect(result).toEqual(12);
     });
   });
+
+  describe('advent 6 - lantern fish', () => {
+    const input: string[] = testInputDataByDay['6'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService();
+      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+    });
+
+    it('gets day 5', async () => {
+      const result = await service.getResultByDay('6');
+      expect(result).toEqual(5934);
+    });
+
+    it('gets day 5a', async () => {
+      const result = await service.getResultByDay('6a');
+      expect(result).toEqual(26984457539);
+    });
+  });
 });
