@@ -122,12 +122,12 @@ describe('Testing Advents', () => {
       sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
     });
 
-    it('gets day 5', async () => {
+    it('gets day 6', async () => {
       const result = await service.getResultByDay('6');
       expect(result).toEqual(5934);
     });
 
-    it('gets day 5a', async () => {
+    it.only('gets day 6a', async () => {
       const result = await service.getResultByDay('6a');
       expect(result).toEqual(26984457539);
     });
