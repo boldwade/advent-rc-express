@@ -132,4 +132,24 @@ describe('Testing Advents', () => {
       expect(result).toEqual(26984457539);
     });
   });
+
+  describe('advent 7 - treacherous whale', () => {
+    const input: string[] = testInputDataByDay['7'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService();
+      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+    });
+
+    it.only('gets day 7 - horizontal crab alignment', async () => {
+      const result = await service.getResultByDay('7');
+      expect(result).toEqual(37);
+    });
+
+    it('gets day 7a', async () => {
+      const result = await service.getResultByDay('7a');
+      expect(result).toEqual(26984457539);
+    });
+  });
 });

@@ -8,6 +8,7 @@ import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
 import { adventDay4, adventDay4Map, adventDay4Part2 } from './adventDay4';
 import { adventDay5, adventDay5Map, adventDay5Part2 } from './adventDay5';
 import { adventDay6, adventDay6a, adventDay6Map } from './adventDay6';
+import { adventDay7, adventDay7a, adventDay7Map } from "@services/adventDay7";
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -60,6 +61,7 @@ export default class AdventService {
     '4': adventDay4Map,
     '5': adventDay5Map,
     '6': adventDay6Map,
+    '7': adventDay7Map,
   };
 
   private resultByDayFactory = {
@@ -75,5 +77,7 @@ export default class AdventService {
     '5a': adventDay5Part2,
     '6': adventDay6,
     '6a': adventDay6a,
+    '7': adventDay7,
+    '7a': adventDay7a,
   };
 }
