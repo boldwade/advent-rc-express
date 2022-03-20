@@ -147,9 +147,9 @@ describe('Testing Advents', () => {
       expect(result).toEqual(37);
     });
 
-    it('gets day 7a', async () => {
+    it.only('gets day 7a', async () => {
       const result = await service.getResultByDay('7a');
-      expect(result).toEqual(26984457539);
+      expect(result).toEqual(168);
     });
   });
 });
