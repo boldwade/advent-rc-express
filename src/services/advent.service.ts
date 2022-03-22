@@ -8,7 +8,8 @@ import { adventDay2, adventDay2Map, adventDay2Part2 } from './adventDay2';
 import { adventDay4, adventDay4Map, adventDay4Part2 } from './adventDay4';
 import { adventDay5, adventDay5Map, adventDay5Part2 } from './adventDay5';
 import { adventDay6, adventDay6a, adventDay6Map } from './adventDay6';
-import { adventDay7, adventDay7a, adventDay7Map } from "@services/adventDay7";
+import { adventDay7, adventDay7a, adventDay7Map } from '@services/adventDay7';
+import { adventDay8, adventDay8a, adventDay8Map } from './adventDay8';
 
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
@@ -21,40 +22,46 @@ export default class AdventService {
     },
   };
 
-  public async getInputByDay(day: string): Promise<string[]> {
-    console.log('getInputByDay', day);
-
-    day = day.replace('a', '');
-    if (this.inputMap.has(day)) return this.inputMap.get(day);
-
+  private async fetchInputByDay(day: string): Promise<string[]> {
     const url = this.baseUrl.replace('{day}', day);
 
     try {
       const response = await axios.get<string>(url, this.config);
-      console.log('response.data', response.data);
+      console.log('fetchInputByDay:response.data', response.data);
       if (response.status === 200) {
         const input = response.data?.split('\n');
-        console.log('response item count: ', input?.length);
+        console.log('fetchInputByDay:response item count: ', input?.length);
         return input;
       }
     } catch (error) {
-      console.error('ERROR', error.response.body);
+      console.error('fetchInputByDay:ERROR', error.response.body);
     }
-    throw new HttpException(400, "You're not userData");
+
+    throw new HttpException(400, 'Probably check your .env token');
+  }
+
+  public async getMappedInputByDay(day: string): Promise<string[]> {
+    console.log('getting input for day', day);
+
+    day = day.replace('a', '');
+    if (this.inputMap.has(day)) return this.inputMap.get(day);
+
+    const rawInput = await this.fetchInputByDay(day);
+    const mappedInput = this.inputDayMap[day[0]](rawInput);
+    this.inputMap.set(day, mappedInput);
+
+    console.log('mappedInput', mappedInput);
+    return mappedInput;
   }
 
   public async getResultByDay(day: string): Promise<string | number> {
-    if (this.inputMap.has(day)) return this.resultByDayFactory[day](this.inputMap.get(day));
+    const mappedInput = await this.getMappedInputByDay(day);
+    if (!mappedInput) throw new HttpException(400, 'An error occurred');
 
-    const input = await this.getInputByDay(day);
-    if (!input) throw new HttpException(400, 'An error occurred');
-    const mappedInput = this.mapInputByDay[day[0]](input);
-    console.log('mappedInput', mappedInput);
-    this.inputMap.set(day, mappedInput);
     return this.resultByDayFactory[day](mappedInput);
   }
 
-  private mapInputByDay = {
+  private inputDayMap = {
     '1': parseNumeric,
     '2': adventDay2Map,
     '3': adventDay3Map,
@@ -62,6 +69,7 @@ export default class AdventService {
     '5': adventDay5Map,
     '6': adventDay6Map,
     '7': adventDay7Map,
+    '8': adventDay8Map,
   };
 
   private resultByDayFactory = {
@@ -79,5 +87,7 @@ export default class AdventService {
     '6a': adventDay6a,
     '7': adventDay7,
     '7a': adventDay7a,
+    '8': adventDay8,
+    '8a': adventDay8a,
   };
 }

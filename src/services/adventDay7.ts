@@ -1,6 +1,6 @@
 export const adventDay7Map = (input: string[]): number[] => input[0].split(',').map(x => parseInt(x));
 
-const calculateFuelForSteps = n => (n * (n + 1)) / 2;
+const calculateFuelForSteps = (n: number) => (n * (n + 1)) / 2;
 
 export const adventDay7 = (input: number[], useSteps = false): number => {
   const startTime = Date.now();
@@ -32,7 +32,7 @@ export const adventDay7 = (input: number[], useSteps = false): number => {
   const minDistanceKey = Math.min(...[...distancesByIndex.values()]);
   const stopTime = Date.now();
 
-  console.log('Day 7 answer:', minDistanceKey, stopTime - startTime / 1000);
+  console.log('Day 7 answer:', minDistanceKey, (stopTime - startTime) / 1000);
   return minDistanceKey;
 };
 
