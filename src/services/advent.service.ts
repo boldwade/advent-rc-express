@@ -14,7 +14,7 @@ import { adventDay8, adventDay8a, adventDay8Map } from './adventDay8';
 export default class AdventService {
   private inputMap: Map<string, string[]> = new Map();
   private baseUrl = 'https://adventofcode.com/2021/day/{day}/input';
-  private config: AxiosRequestConfig<any> = {
+  private config: AxiosRequestConfig = {
     method: 'get',
     headers: {
       Cookie: process.env.COOKIE,

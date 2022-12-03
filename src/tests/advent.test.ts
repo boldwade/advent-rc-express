@@ -1,6 +1,6 @@
 import AdventService from '../services/advent.service';
 import { adventDay2Map } from '../services/adventDay2';
-import { testInputDataByDay } from './advent.input';
+import { testInputDataByDay } from './advent.input.2021';
 import * as sinon from 'sinon';
 
 afterAll(async () => {
@@ -14,7 +14,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it('gets day 1', async () => {
@@ -34,7 +34,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it('day 2 input map', async () => {
@@ -59,7 +59,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it('gets day 3', async () => {
@@ -79,7 +79,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it('gets day 4', async () => {
@@ -99,7 +99,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it('gets day 5', async () => {
@@ -119,7 +119,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it('gets day 6', async () => {
@@ -139,7 +139,7 @@ describe('Testing Advents', () => {
 
     beforeEach(() => {
       service = new AdventService();
-      sinon.stub(service, 'getInputByDay').returns(Promise.resolve(input));
+      sinon.stub(service, 'getMappedInputByDay').returns(Promise.resolve(input));
     });
 
     it.only('gets day 7 - horizontal crab alignment', async () => {

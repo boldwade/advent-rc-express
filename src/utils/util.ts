@@ -12,11 +12,8 @@ export const isEmpty = (value: string | number | object): boolean => {
   } else if (typeof value === 'undefined' || value === undefined) {
     return true;
     // eslint-disable-next-line prettier/prettier
-  } else if (value !== null && typeof value === 'object' && !Object.keys(value).length) {
-    return true;
-  } else {
-    return false;
   }
+  return value !== null && typeof value === 'object' && !Object.keys(value).length;
 };
 
 // use adventDay3Part2
