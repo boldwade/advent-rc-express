@@ -17,15 +17,15 @@ describe('Advent Tests', () => {
       expect(rawInput.length).toEqual(14)
     });
 
-    it('Part a - Find elf carrying most calories result', async () => {
+    it('Part a - Find elf carrying most calories, calc result', async () => {
       const result = await service.getResultByDay('1a');
       expect(result).toEqual(24000);
     });
 
-    // it('Part b - ', async () => {
-    //   const result = await service.getResultByDay('1a');
-    //   expect(result).toEqual(4);
-    // });
+    it('Part b - Find top 3 elves carrying most calories, calc result', async () => {
+      const result = await service.getResultByDay('1b');
+      expect(result).toEqual(45000);
+    });
   });
 
 });
