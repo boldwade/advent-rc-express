@@ -2,7 +2,7 @@ export const adventDay7Map = (input: string[]): number[] => input[0].split(',').
 
 const calculateFuelForSteps = (n: number) => (n * (n + 1)) / 2;
 
-export const adventDay7 = (input: number[], useSteps = false): number => {
+export const adventDay7a = (input: number[], useSteps = false): number => {
   const startTime = Date.now();
 
   const minPosition = Math.min(...input);
@@ -36,4 +36,4 @@ export const adventDay7 = (input: number[], useSteps = false): number => {
   return minDistanceKey;
 };
 
-export const adventDay7a = (input: number[]): number => adventDay7(input, true);
+export const adventDay7b = (input: number[]): number => adventDay7a(input, true);

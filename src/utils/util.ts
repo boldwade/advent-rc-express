@@ -20,3 +20,9 @@ export const isEmpty = (value: string | number | object): boolean => {
 // export const convertToDecimal = (a: number, c: number, i: number) => a + (i === 0 || c === 0 ? c : Math.pow(2, i));
 
 export const parseNumeric = (input: string[]) => input.map(x => Number.parseInt(x));
+
+export function sleep(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}

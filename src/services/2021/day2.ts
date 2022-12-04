@@ -4,7 +4,7 @@ export const adventDay2Map = (input: string[]) =>
     return { type: m[0] as movementType, spaces: Number.parseInt(m[1]) };
   });
 
-export const adventDay2 = (input: movement[]) => {
+export const adventDay2a = (input: movement[]) => {
   let height = 0;
   let distance = 0;
 
@@ -26,7 +26,7 @@ export const adventDay2 = (input: movement[]) => {
   return height * distance;
 };
 
-export const adventDay2Part2 = (input: movement[]) => {
+export const adventDay2b = (input: movement[]) => {
   let height = 0;
   let distance = 0;
   let aim = 0;

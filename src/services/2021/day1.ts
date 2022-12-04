@@ -1,14 +1,16 @@
-export const adventDay1 = (input: number[]) => {
+export const adventDay1a = (input: number[]) => {
   let result = 0;
+
   input.reduce((prev: number, curr: number) => {
     if (curr > prev) result++;
     return curr;
   });
-  console.log('day one result', result);
+
+  console.log('Day 1 result =', result);
   return result;
 };
 
-export const adventDay1Part2 = (input: number[]) => {
+export const adventDay1b = (input: number[]) => {
   let result = 0;
 
   const groups = new Map<number, number>();
@@ -22,5 +24,6 @@ export const adventDay1Part2 = (input: number[]) => {
     if (value > map.get(key - 1)) result++;
   });
 
+  console.log('Day 2 result =', result);
   return result;
 };

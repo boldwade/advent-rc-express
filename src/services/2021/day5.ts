@@ -1,4 +1,4 @@
-interface lineSegment {
+export interface lineSegment {
   startX: number;
   startY: number;
   endX: number;
@@ -24,12 +24,12 @@ export const adventDay5Map = (input: string[]): lineSegment[] =>
     })
     .filter(x => x);
 
-export const adventDay5 = (input: lineSegment[]) => {
+export const adventDay5a = (input: lineSegment[]) => {
   // Hydrothermal Venture
-  return adventDay5Part2(input.filter(x => x.startX === x.endX || x.startY === x.endY));
+  return adventDay5b(input.filter(x => x.startX === x.endX || x.startY === x.endY));
 };
 
-export const adventDay5Part2 = (input: lineSegment[]) => {
+export const adventDay5b = (input: lineSegment[]) => {
   // Hydrothermal Venture including diagnol
   const tallies = new Map<string, number>();
 

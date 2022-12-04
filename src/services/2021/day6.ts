@@ -33,5 +33,5 @@ export const getSumOfFish = (input: number[], numberOfDays = 80) => {
   return result;
 };
 
-export const adventDay6 = (fish: number[]): number => getSumOfFish(fish, 80);
-export const adventDay6a = (fish: number[]): number => getSumOfFish(fish, 256);
+export const adventDay6a = (fish: number[]): number => getSumOfFish(fish, 80);
+export const adventDay6b = (fish: number[]): number => getSumOfFish(fish, 256);

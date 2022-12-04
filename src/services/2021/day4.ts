@@ -58,7 +58,7 @@ function getWinningColumns(rows: Array<number[]>, calledNumbers: number[], lastC
     .filter(line => isWinningLine(line, calledNumbers));
 }
 
-export const adventDay4 = (input: BingoDay) => {
+export const adventDay4a = (input: BingoDay) => {
   // Get first winning board
   const calledNumbers: number[] = [];
   let winningRows: number[][] = [];
@@ -99,7 +99,7 @@ export const adventDay4 = (input: BingoDay) => {
   return result;
 };
 
-export const adventDay4Part2 = (input: BingoDay) => {
+export const adventDay4b = (input: BingoDay) => {
   // Get last winning board
   const calledNumbers: number[] = [];
   let lastWinningCardIndex = -1;

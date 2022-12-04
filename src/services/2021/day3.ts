@@ -1,6 +1,6 @@
 export const adventDay3Map = (input: string[]) => input;
 
-export const adventDay3 = (input: string[]) => {
+export const adventDay3a = (input: string[]) => {
   const totalBinaries = input.length;
   const binaryLength = input[0].length;
   const binaryTally: number[] = [];
@@ -36,7 +36,7 @@ export const adventDay3 = (input: string[]) => {
   return gammaNumber * epsilonNumber;
 };
 
-export const adventDay3Part2 = (input: string[]) => {
+export const adventDay3b = (input: string[]) => {
   console.log('adventDayThreePartTwo', input);
 
   const getCommonBit = (position: number, inputArray: string[]): 0 | 1 => {
