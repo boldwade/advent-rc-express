@@ -53,7 +53,12 @@ export default class AdventService {
     const mappedInput = await this.getMappedInputByDay(day);
     if (!mappedInput) throw new HttpException(400, 'An error occurred');
 
-    return this.resultByYearDayFactory[this.year][day](mappedInput);
+    const startTime = Date.now();
+    const result = this.resultByYearDayFactory[this.year][day](mappedInput);
+    const stopTime = Date.now();
+    console.log('GetResultByDay', day, '=', result, 'ProcessTime', '=', (stopTime - startTime) / 1000);
+
+    return result;
   }
 
   private inputMapByYearDay = {

@@ -1,6 +1,6 @@
-export const adventDayMap = (input: string[]): number[] => input[0].split(',').map(x => parseInt(x));
+export const DayXMap = (input: string[]): number[] => input[0].split(',').map(x => parseInt(x));
 
-export const adventDay = (input: number[]): number => {
+export const DayXa = (input: number[]): number => {
   const startTime = Date.now();
 
   const result = -1;
@@ -10,4 +10,4 @@ export const adventDay = (input: number[]): number => {
   return result;
 };
 
-export const adventDaya = (input: number[]): number => adventDay(input);
+export const DayXb = (input: number[]): number => DayXa(input);
