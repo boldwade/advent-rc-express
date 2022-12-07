@@ -3,6 +3,7 @@ import * as sinon from "sinon";
 import { testInputDataByDay } from "./advent.2022.input";
 import { Day2Map } from "@services/2022/day2";
 import { Day3Map } from "@services/2022/day3";
+import { Day4Map } from "@services/2022/day4";
 
 describe('Advent Tests', () => {
 
@@ -92,6 +93,37 @@ describe('Advent Tests', () => {
     it('Part b - Badge type priority sum', async () => {
       const result = await service.getResultByDay('3b');
       expect(result).toEqual(70);
+    });
+  });
+
+  describe('Day 4', () => {
+    const rawInput: string[] = testInputDataByDay['4'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService('2022');
+      sinon.stub(service, 'fetchInputByDay').returns(Promise.resolve(rawInput));
+    });
+
+    it('Has valid input', () => {
+      expect(rawInput.length).toEqual(6);
+    });
+
+    it('Has valid mapped input', () => {
+      const mappedInput = Day4Map(rawInput);
+      expect(mappedInput.length).toEqual(6);
+      // expect(mappedInput[3].secondElf.length).toEqual(5)
+      expect(mappedInput[3].secondElf[1]).toEqual(7)
+    });
+
+    it('Part a - Fully contained range pairs', async () => {
+      const result = await service.getResultByDay('4a');
+      expect(result).toEqual(2);
+    });
+
+    it('Part b - Any overlapping range pairs', async () => {
+      const result = await service.getResultByDay('4b');
+      expect(result).toEqual(4);
     });
   });
 
