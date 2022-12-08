@@ -4,6 +4,7 @@ import { testInputDataByDay } from "./advent.2022.input";
 import { Day2Map } from "@services/2022/day2";
 import { Day3Map } from "@services/2022/day3";
 import { Day4Map } from "@services/2022/day4";
+import { Day5Map } from "@services/2022/day5";
 
 describe('Advent Tests', () => {
 
@@ -112,8 +113,7 @@ describe('Advent Tests', () => {
     it('Has valid mapped input', () => {
       const mappedInput = Day4Map(rawInput);
       expect(mappedInput.length).toEqual(6);
-      // expect(mappedInput[3].secondElf.length).toEqual(5)
-      expect(mappedInput[3].secondElf[1]).toEqual(7)
+      expect(mappedInput[3].secondElf[1]).toEqual(7);
     });
 
     it('Part a - Fully contained range pairs', async () => {
@@ -125,6 +125,40 @@ describe('Advent Tests', () => {
       const result = await service.getResultByDay('4b');
       expect(result).toEqual(4);
     });
+  });
+
+  describe('Day 5 - Supply Stacks', () => {
+    const rawInput: string[] = testInputDataByDay['5'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService('2022');
+      sinon.stub(service, 'fetchInputByDay').returns(Promise.resolve(rawInput));
+    });
+
+    it('Has valid input', () => {
+      expect(rawInput.length).toEqual(9);
+    });
+
+    it('Has valid mapped input', () => {
+      const mappedInput = Day5Map(rawInput);
+      expect(mappedInput.stacks.length).toEqual(3);
+      expect(mappedInput.stacks.find(x => x.position === 1).stack.length).toEqual(2);
+      expect(mappedInput.instructions.length).toEqual(4);
+      expect(mappedInput.instructions[0].amountToMove).toEqual(1);
+      expect(mappedInput.instructions[0].moveFromPosition).toEqual(2);
+      expect(mappedInput.instructions[0].moveToPosition).toEqual(1);
+    });
+
+    it('Part a - Top crate at each stack', async () => {
+      const result = await service.getResultByDay('5a');
+      expect(result).toEqual('CMZ');
+    });
+
+    // it('Part b - Rearrangement procedure', async () => {
+    //   const result = await service.getResultByDay('5b');
+    //   expect(result).toEqual(4);
+    // });
   });
 
 });
