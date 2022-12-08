@@ -180,15 +180,15 @@ describe('Advent Tests', () => {
       expect(mappedInput.length).toEqual(4);
     });
 
-    it('Part a - Top crate at each stack', async () => {
+    it('Part a - Start of packet marker', async () => {
       const result = await service.getResultByDay('6a');
-      expect(result).toEqual('561011');
+      expect(result).toEqual('7561011');
     });
 
-    // it('Part b - Rearrangement procedure', async () => {
-    //   const result = await service.getResultByDay('6b');
-    //   expect(result).toEqual('MCD');
-    // });
+    it('Part b - Start of message marker', async () => {
+      const result = await service.getResultByDay('6b');
+      expect(result).toEqual('1923232926');
+    });
   });
 
 });
