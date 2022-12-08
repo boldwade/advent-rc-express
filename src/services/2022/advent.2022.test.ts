@@ -137,7 +137,7 @@ describe('Advent Tests', () => {
     });
 
     it('Has valid input', () => {
-      expect(rawInput.length).toEqual(9);
+      expect(rawInput.length).toEqual(10);
     });
 
     it('Has valid mapped input', () => {
@@ -155,10 +155,10 @@ describe('Advent Tests', () => {
       expect(result).toEqual('CMZ');
     });
 
-    // it('Part b - Rearrangement procedure', async () => {
-    //   const result = await service.getResultByDay('5b');
-    //   expect(result).toEqual(4);
-    // });
+    it('Part b - Rearrangement procedure', async () => {
+      const result = await service.getResultByDay('5b');
+      expect(result).toEqual('MCD');
+    });
   });
 
 });

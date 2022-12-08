@@ -20,7 +20,7 @@ export const Day5Map = (input: string[]): SupplyStacks => {
     stacks: [],
   };
   const inputSplitIndex = input.findIndex(x => x === '');
-  const numberOfStacks = Math.round((input[inputSplitIndex - 2].length - 1) / 3);
+  const numberOfStacks = Math.round((input[inputSplitIndex - 2].length - 1) / 4);
 
   for (let y = 0; y < inputSplitIndex - 1; y++) {
     const row = input[y];
@@ -34,7 +34,7 @@ export const Day5Map = (input: string[]): SupplyStacks => {
     }
   }
 
-  for (let y = inputSplitIndex + 1; y < input.length; y++) {
+  for (let y = inputSplitIndex + 1; y < input.length - 1; y++) {
     const rawRow = input[y]
       .replace('move ', '')
       .replace(' from ', '|')
@@ -51,7 +51,7 @@ export const Day5Map = (input: string[]): SupplyStacks => {
 };
 
 export const Day5a = (input: SupplyStacks): string => {
-  input.instructions.forEach(x => {
+  input.instructions.filter(x => !!x).forEach(x => {
     for (let i = 1; i <= x.amountToMove; i++) {
       const crateToMove = input.stacks.find(y => y.position === x.moveFromPosition).stack.splice(0, 1)[0];
       input.stacks.find(y => y.position === x.moveToPosition).stack.unshift(crateToMove);
@@ -61,4 +61,11 @@ export const Day5a = (input: SupplyStacks): string => {
   return input.stacks.flatMap(x => x.stack[0]).join('');
 };
 
-export const Day5b = (input: SupplyStacks): string => Day5a(input);
+export const Day5b = (input: SupplyStacks): string => {
+  input.instructions.filter(x => !!x).forEach(x => {
+    const crateToMove = input.stacks.find(y => y.position === x.moveFromPosition).stack.splice(0, x.amountToMove);
+    input.stacks.find(y => y.position === x.moveToPosition).stack.unshift(...crateToMove);
+  });
+
+  return input.stacks.flatMap(x => x.stack[0]).join('');
+}
