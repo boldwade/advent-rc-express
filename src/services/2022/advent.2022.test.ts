@@ -5,6 +5,7 @@ import { Day2Map } from "@services/2022/day2";
 import { Day3Map } from "@services/2022/day3";
 import { Day4Map } from "@services/2022/day4";
 import { Day5Map } from "@services/2022/day5";
+import { Day6Map } from "@services/2022/day6";
 
 describe('Advent Tests', () => {
 
@@ -159,6 +160,35 @@ describe('Advent Tests', () => {
       const result = await service.getResultByDay('5b');
       expect(result).toEqual('MCD');
     });
+  });
+
+  describe('Day 6 - Start of packet', () => {
+    const rawInput: string[] = testInputDataByDay['6'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService('2022');
+      sinon.stub(service, 'fetchInputByDay').returns(Promise.resolve(rawInput));
+    });
+
+    it('Has valid input', () => {
+      expect(rawInput.length).toEqual(4);
+    });
+
+    it('Has valid mapped input', () => {
+      const mappedInput = Day6Map(rawInput);
+      expect(mappedInput.length).toEqual(4);
+    });
+
+    it('Part a - Top crate at each stack', async () => {
+      const result = await service.getResultByDay('6a');
+      expect(result).toEqual('561011');
+    });
+
+    // it('Part b - Rearrangement procedure', async () => {
+    //   const result = await service.getResultByDay('6b');
+    //   expect(result).toEqual('MCD');
+    // });
   });
 
 });
