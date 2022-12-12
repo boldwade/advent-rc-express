@@ -5,6 +5,7 @@ import { Day3a, Day3b, Day3Map } from "@services/2022/day3";
 import { Day4a, Day4b, Day4Map } from "@services/2022/day4";
 import { Day5a, Day5b, Day5Map } from "@services/2022/day5";
 import { Day6a, Day6b, Day6Map } from "@services/2022/day6";
+import { Day7a, Day7b, Day7Map } from "@services/2022/day7";
 
 export const inputDayMap2022 = {
   '1': parseNumeric,
@@ -13,6 +14,7 @@ export const inputDayMap2022 = {
   '4': Day4Map,
   '5': Day5Map,
   '6': Day6Map,
+  '7': Day7Map,
 };
 
 export const resultByDayFactory2022 = {
@@ -28,4 +30,6 @@ export const resultByDayFactory2022 = {
   '5b': Day5b,
   '6a': Day6a,
   '6b': Day6b,
+  '7a': Day7a,
+  '7b': Day7b,
 };

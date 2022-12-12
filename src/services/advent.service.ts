@@ -9,6 +9,7 @@ export default class AdventService {
   }
 
   private inputMap: Map<string, string[]> = new Map();
+  // @ts-ignore
   private baseUrl = `https://adventofcode.com/${this.year}/day/{day}/input`;
   private config: AxiosRequestConfig = {
     method: 'get',
@@ -37,7 +38,7 @@ export default class AdventService {
   }
 
   public async getMappedInputByDay(day: string): Promise<string[]> {
-    console.info('Getting input for day:', day);
+    console.info('Getting input for day:', this.year, day);
 
     day = day.replace('a', '').replace('b', '');
     if (this.inputMap.has(day)) return this.inputMap.get(day);

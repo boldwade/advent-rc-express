@@ -6,6 +6,7 @@ import { Day3Map } from "@services/2022/day3";
 import { Day4Map } from "@services/2022/day4";
 import { Day5Map } from "@services/2022/day5";
 import { Day6Map } from "@services/2022/day6";
+import { Day7Map } from "@services/2022/day7";
 
 describe('Advent Tests', () => {
 
@@ -187,6 +188,38 @@ describe('Advent Tests', () => {
 
     it('Part b - Start of message marker', async () => {
       const result = await service.getResultByDay('6b');
+      expect(result).toEqual('1923232926');
+    });
+  });
+
+  describe('Day 7 - No space left on device', () => {
+    const rawInput: string[] = testInputDataByDay['7'].split('\n');
+    let service: AdventService;
+
+    beforeEach(() => {
+      service = new AdventService('2022');
+      sinon.stub(service, 'fetchInputByDay').returns(Promise.resolve(rawInput));
+    });
+
+    it('Has valid input', () => {
+      expect(rawInput.length).toEqual(23);
+    });
+
+    it('Has valid mapped input', () => {
+      const mappedInput = Day7Map(rawInput);
+      console.log('mappedInput', JSON.stringify(mappedInput));
+      expect(mappedInput.findByName('d').filesSize).toEqual(24933642);
+      const a = mappedInput.findByName('a');
+      console.log('RESULT of a =', a.fileSize, a.size, a.sizeRecursive)
+    });
+
+    it('Part a - Get total size with directories over 100k', async () => {
+      const result = await service.getResultByDay('7a');
+      expect(result).toEqual(95437);
+    });
+
+    it('Part b - Start of message marker', async () => {
+      const result = await service.getResultByDay('7b');
       expect(result).toEqual('1923232926');
     });
   });
