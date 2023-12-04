@@ -6,7 +6,7 @@ import AdventService from '@/services/advent.service';
 export class AdventController {
   @Get('/advent/:year/:day')
   @OpenAPI({ summary: 'Get advent input by year & day' })
-  async getResultBy(@Param('year') year: '2021' | '2022', @Param('day') day: string) {
+  async getResultBy(@Param('year') year: '2021' | '2022' | '2023', @Param('day') day: string) {
     console.log('adventController.getResultByYearDay', year, day);
     const adventService = new AdventService(year);
     const data = await adventService.getResultByDay(day);

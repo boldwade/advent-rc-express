@@ -4,7 +4,7 @@ import { inputDayMap2021, resultByDayFactory2021 } from "@services/2021/advent.m
 import { inputDayMap2022, resultByDayFactory2022 } from "@services/2022/advent.map.2022";
 
 export default class AdventService {
-  constructor(private readonly year: '2021' | '2022') {
+  constructor(private readonly year: '2021' | '2022' | '2023') {
     this.year = year;
   }
 
